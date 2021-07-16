@@ -12,7 +12,7 @@
 <div class="container mt-5">
 <div class="row">
 <div class="col-xl-12 text-right">
-<a href="{{ url('posts') }}" class="btn btn-danger"> Back </a>
+<a href="{{ url('posts') }}" class="btn btn-danger">Go Back </a>
 </div>
 </div>
 <form action="{{url('store')}}" method="POST">
