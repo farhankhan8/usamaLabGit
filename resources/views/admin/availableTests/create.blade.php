@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="timehour">Stander Completed time</label>
+                        <label for="timehour">Standard Completed time</label>
                         <div class="input-group">
                             <input type="text" name="stander_timehour" class="form-control" id="duration"> 
                         </div> 
