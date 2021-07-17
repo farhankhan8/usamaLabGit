@@ -49,7 +49,7 @@
                     <div class="col-md-3 mb-3">
                         <label for="urgent_timehour">Urgent Completed time</label>
                         <div class="input-group">
-                            <input type="text" name="urgent_timehour" class="form-control" id="duration1"> 
+                            <input type="text" name="urgent_timehour" class="form-control" id="duration2"> 
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">

@@ -73,7 +73,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 mb-3">
+                        <div class="col-md-3 mb-3">
                             <div class="form-group">
                                 <label class="">Select Status</label>
                                 <select class="form-control  {{ $errors->has('Sname_id') ? 'is-invalid' : '' }}" name="Sname_id[]" disabled>
@@ -98,7 +98,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 mb-3">
+                        <div class="col-md-3 mb-3">
                             <div class="form-group">
                                 <label for="fee_final">Charged Fee</label>
                                 <div class="input-group">
@@ -112,7 +112,7 @@
 
 
 
-                        <div class="col-md-5 mb-3">
+                        <div class="col-md-3 mb-3">
                             <div class="form-group">
                                 <label class="required">Test Type</label>
                                 <select class="form-control" name="type[]">
@@ -203,10 +203,13 @@
         function add_report() {
             document.getElementById("test_block").insertAdjacentHTML( 'beforeend', document.getElementById("test_block").getElementsByClassName("test_form_div")[0].outerHTML );
         }
+    </script>
+    <script>
         ClassicEditor
         .create( document.querySelector( '#body' ) )
         .catch( error => {
         console.error( error );
         } );
     </script>
-@endsection
+    
+@endsection 

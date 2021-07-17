@@ -112,6 +112,10 @@ class AvailableTestController extends Controller
             'name' => $request->name,
             'testFee' => $request->testFee,
             'urgentFee' => $request->urgentFee,
+            'stander_timehour' => $request->stander_timehour,
+            'urgent_timehour' => $request->urgent_timehour,
+
+
         ])->save();
         $task->available_test_inventories()->whereNotIn("inventory_id", $request->inventory_ids)->delete();
         $data = [];

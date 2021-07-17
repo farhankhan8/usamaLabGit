@@ -24,7 +24,6 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-duration-picker.css') }}" rel="stylesheet" />
     <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
     @yield('styles')
@@ -106,12 +105,142 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/bootstrap-duration-picker.js') }}"></script>
     <script src="{{ asset('js/bootstrap-duration-picker-debug.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+
+
+
+    <script>
+        var table="";
+        $('#duration').durationPicker();
+        $('#duration1').durationPicker();
+    function searchTable()
+    {
+       $(document).ready(function() {
+       // Setup - add a text input to each footer cell
+          $('#example thead tr').clone(true).appendTo( '#example thead' );
+             $('#example thead tr:eq(1) th').each( function (i) {
+                   var title = $(this).text();
+               $(this).html( '<input type="text" placeholder="Search" />' );
+                 $( 'input', this ).on( 'keyup change', function () {
+                     if ( table.column(i).search() !== this.value ) {
+                       table
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                      }
+                    } );
+                  } );
+        table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+    }
+    $(function() {
+      searchTable()
+     let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
+  let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
+  let excelButtonTrans = '{{ trans('global.datatables.excel') }}'
+  let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
+  let printButtonTrans = '{{ trans('global.datatables.print') }}'
+  let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
+  let selectAllButtonTrans = '{{ trans('global.select_all') }}'
+  let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
+  let languages = {
+    'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+  };
+  $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
+  $.extend(true, $.fn.dataTable.defaults, {
+    language: {
+      url: languages['{{ app()->getLocale() }}']
+    },
+    columnDefs: [{
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+    }, {
+        orderable: false,
+        searchable: true,
+        targets: -1
+    }],
+    select: {
+      style:    'multi+shift',
+      selector: 'td:first-child'
+    },
+    order: [],
+    scrollX: true,
+    pageLength: 100,
+    dom: 'lBfrtip<"actions">',
+    buttons: [
+      {
+        extend: 'selectAll',
+        className: 'btn-primary',
+        text: selectAllButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'selectNone',
+        className: 'btn-primary',
+        text: selectNoneButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'copy',
+        className: 'btn-default',
+        text: copyButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'csv',
+        className: 'btn-default',
+        text: csvButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'excel',
+        className: 'btn-default',
+        text: excelButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'pdf',
+        className: 'btn-default',
+        text: pdfButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'print',
+        className: 'btn-default',
+        text: printButtonTrans,
+        exportOptions: {
+        columns: ':visible'
+        }
+      },
+      {
+        extend: 'colvis',
+        className: 'btn-default',
+        text: colvisButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      }
+    ]
+  });
+  $.fn.dataTable.ext.classes.sPageButton = '';
+});
+    </script>
+    @yield('scripts')
 </body>
 </html>

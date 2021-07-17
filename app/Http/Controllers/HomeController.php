@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         $todayDate = Carbon::today();
         // dd($todayDate); 
-     
+      
         $data = DB::table('test_performeds')->where('Sname_id', '=', '2')->get();
         $today =$data->where('created_at', '>=',$todayDate)->count();
         // dd($today);

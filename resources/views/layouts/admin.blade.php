@@ -23,6 +23,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-duration-picker.css') }}" rel="stylesheet" />
+
     @yield('styles')
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show">
@@ -107,8 +108,7 @@
     <script>
         var table="";
         $('#duration').durationPicker();
-        $('#duration1').durationPicker();
-
+        $('#duration2').durationPicker();
     function searchTable()
     {
        $(document).ready(function() {
@@ -142,11 +142,9 @@
   let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
   let selectAllButtonTrans = '{{ trans('global.select_all') }}'
   let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
-
   let languages = {
     'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
   };
-
   $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
   $.extend(true, $.fn.dataTable.defaults, {
     language: {
@@ -236,7 +234,6 @@
       }
     ]
   });
-
   $.fn.dataTable.ext.classes.sPageButton = '';
 });
     </script>

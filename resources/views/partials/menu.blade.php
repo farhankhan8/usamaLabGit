@@ -34,8 +34,11 @@
                 <a style="margin-left:15px" href="{{ route("available-tests") }}" class="nav-link">
                     List Of Available Tests
                 </a>
-                <a style="margin-left:15px" href="{{ route("catagory-list") }}" class="nav-link">                   
+                <a style="margin-left:15px" href="{{ route("category") }}" class="nav-link">                   
                     Test Categories
+                </a>
+                <a type="hidden" style="" href="{{ route("catagory-list") }}" class="">                   
+                    
                 </a>
             </li>
 

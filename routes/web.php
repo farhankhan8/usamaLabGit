@@ -81,8 +81,9 @@ Route::DELETE('patient-category-delete/{id}',[Controllers\PatientCategoryControl
 
 // thses are the route for CatagoryController
 Route::group(['middleware' => ['auth']], function () {
-
 Route::get('catagory-list', [Controllers\TestCatagoryController::class,'index'])->name('catagory-list');
+Route::get('category', [Controllers\TestCatagoryController::class,'index'])->name('category');
+
 Route::get('catagory-create',[Controllers\TestCatagoryController::class,'create'])->name('catagory-create');
 Route::post('catagory-store',[Controllers\TestCatagoryController::class,'store'])->name('catagory-store');
 Route::get('catagory-show/{id}',[Controllers\TestCatagoryController::class,'show'])->name('catagory-show');
