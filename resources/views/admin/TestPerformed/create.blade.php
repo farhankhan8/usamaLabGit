@@ -206,7 +206,7 @@
     </script>
     <script>
         ClassicEditor
-        .create( document.querySelector( '#body' ) )
+        .create( document.querySelector('#body') )
         .catch( error => {
         console.error( error );
         } );
