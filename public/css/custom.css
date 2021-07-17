@@ -134,3 +134,12 @@ table.dataTable thead .sorting_desc {
 .form-check.is-invalid ~ .invalid-feedback {
     display: block;
 }
+
+
+.card{
+    border:none;
+}
+
+.card-body {
+    border-radius: 5px;
+}

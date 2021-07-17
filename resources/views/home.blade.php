@@ -8,96 +8,58 @@
               Dashboard 
             </div>
             <div class="container-fluid">
-              <div class="row mt-2 widgets">
-                <div class="col-xl-3 col-sm-6 py-2">
+              <div class="row mt-2 mb-4 widgets">
+                <div class="col-md-3 col-sm-6 py-2">
                   <div class="card card-1 text-white h-100">
                     <div style="background-color:rgb(0,200,255);" class="card-body card-1">
-                      <div class="rotate">
-                        <i class="fa fa-hospital-o" style="font-size:36px;"></i>
-                      </div>
-                      <h5 class="mb-5">Today Verified Tests</h5>
+                      
+                      <i class="mr-2 fa fa-hospital-o" style="font-size:48px;"></i>
+                      
+                      <h5 class="mb-3 d-inline-block">Today Verified Tests</h5>
                       <h3 class="amount-position"> {{ $today }}</h3>
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 py-2">
+                <div class="col-md-3 col-sm-6 py-2">
                   <div class="card card-1 text-white h-100">
                     <div style="background-color:rgb(50,150,255);" class="card-body card-1">
-                      <div class="rotate">
-                        <i class="fa fa-user-md" style="font-size:36px;"></i>
-                      </div>
-                      <h5 class="mb-5">Weekly  Verified Tests</h5>
+                      
+                      <i class="mr-2 fa fa-user-md" style="font-size:48px;"></i>
+                      
+                      <h5 class="mb-3 d-inline-block">Weekly  Verified Tests</h5>
                       <h3 class="amount-position"> {{ $thisWeekPatient }}</h3>
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 py-2">
+                <div class="col-md-3 col-sm-6 py-2">
                   <div class="card card-1 text-white h-100">
                     <div  style="background-color:rgb(200,150,255);" class="card-body card-1">
-                      <div class="rotate">
-                        <i class="fa fa-stethoscope" style="font-size:36px;"></i>
-                      </div>
-                      <h5 class="mb-5">Monthly Verified Tests </h5>
+                      
+                      <i class="mr-2 fa fa-stethoscope" style="font-size:48px;"></i>
+                      
+                      <h5 class="mb-3 d-inline-block">Monthly Verified Tests </h5>
                       <h3 class="amount-position"> {{ $thisMongthPatient }}</h3>
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 py-2">
+                <div class="col-md-3 col-sm-6 py-2">
                   <div class="card card-1 text-white h-100">
                     <div  style="background-color:rgb(200,50,90);;" class="card-body card-1">    
-                      <div class="rotate">
-                        <i class="fa fa-wheelchair" style="font-size:48px;color:red"></i>
-                      </div>
-                      <h5 class="mb-5">Critical Test Today</h5>
+                      
+                      <i class="mr-2 fa fa-wheelchair" style="font-size:48px;color:white"></i>
+                      
+                      <h5 class="mb-3 d-inline-block">Critical Test Today</h5>
                       <h3>{{ count($criticalTestToday) }}</h3>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <style>
-              * {
-                  box-sizing: border-box;
-                }
-              .row {
-                      margin-left:-5px;
-                      margin-right:-5px;
-                    }
-  
-              .column {
-                        float: left;
-                        width: 50%;
-                        padding: 5px;
-                        }
-                        .colum {
-                        float: left;
-                        width: 100%;
-                        padding: 50px;
-                        }
-                        /* Clearfix (clear floats) */
-              .row::after {
-                        content: "";
-                        clear: both;
-                        display: table;
-                      }
-                table {
-                        border-collapse: collapse;
-                        border-spacing: 0;
-                        width: 100%;
-                        border: 1px solid #ddd;
-                      }
-                th, td {
-                        text-align: left;
-                        padding: 16px;
-                      }
-                tr:nth-child(even) {
-                        background-color: #f2f2f2;
-                      }
-            </style>
-            <div class="card-body">
+            
+            <div class="container-fluid">
               <div class="table-responsive">
                 <div class="row">
-                  <div class="column">
+                  <div class="col-md-6 col-sm-12">
                     <span style="text-align: left;"><h2>All Tests Performed Today</h2></span>  
                     <table class="table table-bordered table-striped table-hover datatable datatable-Event">
                       <thead>
@@ -159,7 +121,7 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="card-body">
+                  <div class="col-md-6 col-sm-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover datatable datatable-Event">
                           <span style="text-align: center;"><h2>Top  Tests Today </h2></span>  
@@ -183,7 +145,7 @@
                 </div>
                 
                 <div class="row">
-                  <div class="column">
+                  <div class="col-md-6 col-sm-12">
                     <span style="text-align: left;"><h2>Critical Tests Today </h2></span>  
                     <table class="table table-bordered table-striped table-hover datatable datatable-Event">
                       <thead>
@@ -207,7 +169,7 @@
                     </table>
                   </div>
   
-                  <div class="">
+                  <div class="col-md-6 col-sm-12">
                     <span style="text-align: center;"><h2>Delayed Tests Today</h2></span>  
                     <table class=" table table-bordered table-striped table-hover datatable datatable-Event">
                       <thead>
