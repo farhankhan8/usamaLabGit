@@ -60,11 +60,18 @@
                         <div class="col-md-3 mb-3">
                             <div class="form-group">
                                 <label class="required">Select Test Name</label>
+                                <select class="form-control select2 {{ $errors->has('patients') ? 'is-invalid' : '' }}" onchange="set_test_form(this)" name="available_test_id[]" required>
+                                    @foreach($availableTests as $id => $availableTest)
+                                        <option value="{{ $id }}">{{ $availableTest }}</option>
+                                    @endforeach
+                                </select>
+                                <!--
                                 <select  class="form-control  {{ $errors->has('available_tests') ? 'is-invalid' : '' }}" onchange="set_test_form(this)" name="available_test_id[]" required>
                                     @foreach($availableTests as $id => $availableTest)
                                         <option value="{{ $id }}">{{ $availableTest }}</option>
                                     @endforeach
                                 </select>
+                                -->
                                 @if($errors->has('available_tests'))
                                     <div class="invalid-feedback">
                                         {{ $errors->first('available_tests') }}
@@ -103,7 +110,7 @@
                                 <label for="fee_final">Charged Fee</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend">Rs.</span>
+                                        <span class="input-group-text">Rs.</span>
                                     </div>
                                     <input class="form-control" type="number" name="fee_final[]" id="fee_final" value="">
                                 </div>
@@ -137,7 +144,7 @@
                                                 <label class="required text-capitalize">{{$report_item->title}} ({{$report_item->normalRange}}){{$report_item->unit}}</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="inputGroupPrepend">{{$report_item->unit}}</span>
+                                                        <span class="input-group-text">{{$report_item->unit}}</span>
                                                     </div>
                                                     <input class="form-control" type="number" name="testResult{{$report_item->id}}[]" value="" required>
                                                 </div>
@@ -171,7 +178,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <p onclick="add_report()" class="btn btn-success">Add Test</p>
+                        <p onclick="add_test()" class="btn btn-success">Add Test</p>
                         <hr>
                     </div>
                    
@@ -184,7 +191,7 @@
     </div>
     <script>
         var select_active = "";
-
+        $testHTML = $("#test_block").html()
         function set_test_form(select) {
             select_active = select;
             console.log(select);
@@ -199,9 +206,18 @@
                 select.parentElement.parentElement.parentNode.getElementsByClassName("standard_fee")[0].innerText = "";
             }
         }
-        function add_report() {
-            document.getElementById("test_block").insertAdjacentHTML( 'beforeend', document.getElementById("test_block").getElementsByClassName("test_form_div")[0].outerHTML );
+
+        function add_test() {
+            $("#test_block").append( $testHTML );
+            $('.select2').select2();
         }
     </script>
-
-@endsection  
+    <script>
+        ClassicEditor
+            .create( document.querySelector('#body') )
+            .catch( error => {
+            console.error( error );
+        });
+    </script>
+    
+@endsection 

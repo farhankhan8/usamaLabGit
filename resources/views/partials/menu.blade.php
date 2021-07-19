@@ -4,38 +4,37 @@
         <ul class="nav">
             <li class="nav-item">
                 <a href="{{ route("home") }}" class="nav-link">
-                    <!-- <i class="nav-icon fas fa-fw fa-tachometer-alt"></i> -->
+                     <i class="nav-icon fas fa-fw fa-tachometer-alt"></i>
                     <strong>{{ trans('global.dashboard') }}</strong>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a href="{{ route("tests-performed") }}" class="nav-link">
-                <!-- <span class="nav-icon"><i class="fas fa-file-medical-alt"></i></span> -->
+                 <span class="nav-icon"><i class="fas fa-file-medical-alt"></i></span>
                     <strong>Tests Performed</strong>
                 </a>
                 <a style="margin-left:15px" href="{{ route("create") }}" class="nav-link">
-                
-                    Perform New Test
+                    - Perform New Test
                 </a>
                 <a style="margin-left:15px" href="{{ route("tests-performed") }}" class="nav-link">
-                    List of Test
+                    - List of Tests
                 </a>
             </li>
 
             <li class="nav-item">
                 <a href="{{ route("available-tests") }}" class="nav-link">
-                <!-- <span class="nav-icon"><i class="fas fa-file-medical"></i></span>                    -->
+                 <span class="nav-icon"><i class="fas fa-file-medical"></i></span>                    
                     <strong>Available Tests</strong>
                 </a>
                 <a style="margin-left:15px" href="{{ route("available-test-create") }}" class="nav-link">                 
-                    Add New Test
+                    - Add New Test
                 </a>
                 <a style="margin-left:15px" href="{{ route("available-tests") }}" class="nav-link">
-                    List Of Available Tests
+                    - List Of Available Tests
                 </a>
                 <a style="margin-left:15px" href="{{ route("category") }}" class="nav-link">                   
-                    Test Categories
+                    - Test Categories
                 </a>
                 <a type="hidden" style="" href="{{ route("catagory-list") }}" class="">                   
                     
@@ -43,37 +42,37 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route("patient-list") }}" class="nav-link">
-                <!-- <span class="nav-icon""><i class="fas fa-procedures"></i></span>                 -->
+                <a href="{{ route('patient-list') }}" class="nav-link">
+                 <span class="nav-icon mr-1"><i class="fas fa-procedures" style='font-size:16px;margin-right:5px;'></i></span>                 
                     <strong>Patients</strong>
                 </a>
                 <a style="margin-left:15px" href="{{ route("patient-create") }}" class="nav-link">
-                    Add New Patient
+                    - Add New Patient
                 </a>
                 <a style="margin-left:15px" href="{{ route("patient-list") }}" class="nav-link"> 
-                    List of patients
+                    - List of patients
                 </a>
                 <a style="margin-left:15px" href="{{ route("patient-category") }}" class="nav-link">                
-                    Patient Categories
+                    - Patient Categories
                 </a>
             </li>
             
             <li class="nav-item">
-                <a href="{{ route("inventory-list") }}" class="nav-link">
-                <!-- <span class="nav-icon"><i class='fas fa-chart-bar' style='font-size:20px'></i></span>                  -->
-                    <strong>Inventory</strong>
+                <a href="{{ route('inventory-list') }}" class="nav-link">
+                 <span class="nav-icon mr-1"><i class='fas fa-chart-bar' style='font-size:18px;margin-right:5px;'></i></span>                 
+                    <strong> Inventory</strong>
                 </a>
                 <a style="margin-left:15px" href="{{ route("inventory-create") }}" class="nav-link">
-                    Add new Item
+                    - Add new Item
                 </a>
                 <a style="margin-left:15px" href="{{ route("inventory-list") }}" class="nav-link"> 
-                    List of products
+                    - List of products
                 </a>
             </li>
             <li class="nav-item">
                     <a href="{{ route("sales") }}" class="nav-link">
-                        <!-- <i class="nav-icon fas fa-fw fa-tachometer-alt">
-                        </i> -->
+                         <i class="nav-icon fas fa-fw fa-tachometer-alt">
+                        </i> 
                         <strong>Sales</strong>
                     </a>
                 </li>

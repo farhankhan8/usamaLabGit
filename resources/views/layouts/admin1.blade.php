@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="stripe-key" content="{{ config('cashier.key') }}">
 
-    <title>Usama Labortory</title>
+    <title>Usama Laboratory</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" />
@@ -35,8 +35,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">
-            <span class="navbar-brand-full">Usama Labortory</span>
-            <span class="navbar-brand-minimized">Usama Labortory</span>
+            <span class="navbar-brand-full">Usama Laboratory</span>
+            <span class="navbar-brand-minimized">Usama Laboratory</span>
         </a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
             <span class="navbar-toggler-icon"></span>
@@ -114,43 +114,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
-    function searchTable()
-    {
-       $(document).ready(function() {
-       // Setup - add a text input to each footer cell
-          $('#example thead tr').clone(true).appendTo( '#example thead' );
-             $('#example thead tr:eq(1) th').each( function (i) {
-                   var title = $(this).text();
-               $(this).html( '<input type="text" placeholder="Search" />' );
- 
-                 $( 'input', this ).on( 'keyup change', function () {
-                     if ( table.column(i).search() !== this.value ) {
-                       table
-                        .column(i)
-                        .search( this.value )
-                        .draw();
-                      }
-                    } );
-                  } );
- 
-        var table = $('#example').DataTable( {
-        orderCellsTop: true,
-        fixedHeader: true
-      } );
-      } );
-    }
-    $(function() {
-    searchTable()
-    let languages = {
-      'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
-    };
-
-    $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
-    $.extend(true, $.fn.dataTable.defaults, {
-    });
-
-    $.fn.dataTable.ext.classes.sPageButton = '';
-    });
+    
+    
     </script>
     @yield('scripts')
   </body>

@@ -111,7 +111,7 @@
                                             <label class="required text-capitalize" for="testResult{{$report_item->id}}">{{$report_item->title}} ({{$report_item->initialNormalValue}}{{$report_item->unit}} - {{$report_item->finalNormalValue}}{{$report_item->unit}})</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroupPrepend">{{$report_item->unit}}</span>
+                                                    <span class="input-group-text">{{$report_item->unit}}</span>
                                                 </div>
                                                 <input class="form-control" type="number" name="testResult{{$report_item->id}}" id="testResult{{$report_item->id}}" value="{{$performed->availableTest->id==$test->id ? $performed->testReport->where("test_report_item_id",$report_item->id)->first()->value:""}}" required>
                                             </div>

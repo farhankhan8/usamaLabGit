@@ -3,12 +3,12 @@
     <div class="content">
       <div class="row">
         <div class="col-lg-12">
-          <div class="card">
+          <div class="card lab-container">
             <div class="card-header">
               Dashboard 
             </div>
             <div class="container-fluid">
-              <div class="row mt-2 mb-4 widgets">
+              <div class="row mt-2 widgets">
                 <div class="col-md-3 col-sm-6 py-2">
                   <div class="card card-1 text-white h-100">
                     <div style="background-color:rgb(0,200,255);" class="card-body card-1">
@@ -143,7 +143,7 @@
                 </div>
               </div>
               
-              <div class="row mt-4">
+              <div class="row">
                 <div class="col-md-6 col-sm-12">
                   <h2>Critical Tests Today </h2>
                   <table class="table table-bordered table-striped table-hover datatable datatable-Event">
@@ -283,6 +283,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
         .columns.adjust();
     });
+    
   })
 </script>
 @endsection

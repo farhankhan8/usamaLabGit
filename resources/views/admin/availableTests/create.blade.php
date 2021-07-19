@@ -56,7 +56,7 @@
                         <label for="validationCustomUsername">Standard Charges</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">Rs</span>
+                                <span class="input-group-text">Rs</span>
                             </div>
                             <input class="form-control {{ $errors->has('testFee') ? 'is-invalid' : '' }}" type="number" name="testFee" id="testFee" value="{{ old('testFee', '') }}" step="1" required>
                         </div>

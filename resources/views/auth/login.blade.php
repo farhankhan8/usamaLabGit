@@ -4,7 +4,7 @@
     <div class="col-md-6">
         <div class="card mx-4">
             <div class="card-body p-4">
-                <h1>Usama Labortory</h1>
+                <h1>Usama Laboratory</h1>
 
                 <p class="text-muted">{{ trans('global.login') }}</p>
 

@@ -18,7 +18,7 @@
     <div class="form-row">
         <div class="col">
             <div class="offset-5 col-md-6">
-                <h1>Usama Labortory</h1>
+                <h1>Usama Laboratory</h1>
                 <hr class="hr">
                     <img style="width: 2rem;" class="card-img-top card d-flex"src="{{ asset('images/public.jpeg') }}"/>
                 <b class="col-md-16 mb-5 text-capitalize">

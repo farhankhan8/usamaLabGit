@@ -22,7 +22,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link href="{{ asset('css/bootstrap-duration-picker.css') }}" rel="stylesheet" />
-    
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
 
     @yield('styles')
@@ -104,145 +105,141 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/bootstrap-duration-picker.js') }}"></script>
     <script src="{{ asset('js/bootstrap-duration-picker-debug.js') }}"></script>
+    
+
 
 
     <script>
-
-    var table="";
-    $('#duration').durationPicker();
-    $('#duration2').durationPicker();
+        var table="";
+        $('#duration').durationPicker();
+        $('#duration1').durationPicker();
     function searchTable()
     {
-        console.log("search funtion");
-        // Setup - add a text input to each footer cell
-        $('#example thead tr').clone(true).appendTo( '#example thead' );
-
-        $('#example thead tr:eq(1) th').each( function (i) {
-            
-            if(i==1 || i==2 || i==3){
-              var title = $(this).text();
-              console.log(i);
-              $(this).html( '<input type="text" placeholder="Search" />' );
-              $( 'input', this ).on( 'keyup change', function () {
-                  if ( table.column(i).search() !== this.value ) {
-                    table.column(i).search( this.value ).draw();
-                  }
-              });
-            }else{
-              $(this).html( '' );
-            }
-        });
-
-        table = $('#example').DataTable({
-            orderCellsTop: true,
-            fixedHeader: true
-        });
-        
+       $(document).ready(function() {
+       // Setup - add a text input to each footer cell
+          $('#example thead tr').clone(true).appendTo( '#example thead' );
+             $('#example thead tr:eq(1) th').each( function (i) {
+                   var title = $(this).text();
+               $(this).html( '<input type="text" placeholder="Search" />' );
+                 $( 'input', this ).on( 'keyup change', function () {
+                     if ( table.column(i).search() !== this.value ) {
+                       table
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                      }
+                    } );
+                  } );
+        table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
     }
-
-    
     $(function() {
-
-        searchTable()
-        let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
-        let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
-        let excelButtonTrans = '{{ trans('global.datatables.excel') }}'
-        let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
-        let printButtonTrans = '{{ trans('global.datatables.print') }}'
-        let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
-        let selectAllButtonTrans = '{{ trans('global.select_all') }}'
-        let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
-        
-        $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
-        $.extend(true, $.fn.dataTable.defaults, {
-          columnDefs: [{
-              orderable: false,
-              className: 'select-checkbox',
-              targets: 0
-          }, {
-              orderable: false,
-              searchable: true,
-              targets: -1
-          }],
-          select: {
-            style:    'multi+shift',
-            selector: 'td:first-child'
-          },
-          order: [],
-          scrollX: true,
-          pageLength: 100,
-          dom: 'lBfrtip<"actions">',
-          buttons: [
-            {
-              extend: 'selectAll',
-              className: 'btn-primary',
-              text: selectAllButtonTrans,
-              exportOptions: {
-                columns: ':visible'
-              }
-            },
-            {
-              extend: 'selectNone',
-              className: 'btn-primary',
-              text: selectNoneButtonTrans,
-              exportOptions: {
-                columns: ':visible'
-              }
-            },
-            {
-              extend: 'copy',
-              className: 'btn-default',
-              text: copyButtonTrans,
-              exportOptions: {
-                columns: ':visible'
-              }
-            },
-            {
-              extend: 'csv',
-              className: 'btn-default',
-              text: csvButtonTrans,
-              exportOptions: {
-                columns: ':visible'
-              }
-            },
-            {
-              extend: 'excel',
-              className: 'btn-default',
-              text: excelButtonTrans,
-              exportOptions: {
-                columns: ':visible'
-              }
-            },
-            {
-              extend: 'pdf',
-              className: 'btn-default',
-              text: pdfButtonTrans,
-              exportOptions: {
-                columns: ':visible'
-              }
-            },
-            {
-              extend: 'print',
-              className: 'btn-default',
-              text: printButtonTrans,
-              exportOptions: {
-              columns: ':visible'
-              }
-            },
-            {
-              extend: 'colvis',
-              className: 'btn-default',
-              text: colvisButtonTrans,
-              exportOptions: {
-                columns: ':visible'
-              }
-            }
-          ]
-        });
-
-        $.fn.dataTable.ext.classes.sPageButton = '';
-      });
-    
+      searchTable()
+     let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
+  let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
+  let excelButtonTrans = '{{ trans('global.datatables.excel') }}'
+  let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
+  let printButtonTrans = '{{ trans('global.datatables.print') }}'
+  let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
+  let selectAllButtonTrans = '{{ trans('global.select_all') }}'
+  let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
+  let languages = {
+    'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+  };
+  $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
+  $.extend(true, $.fn.dataTable.defaults, {
+    language: {
+      url: languages['{{ app()->getLocale() }}']
+    },
+    columnDefs: [{
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+    }, {
+        orderable: false,
+        searchable: true,
+        targets: -1
+    }],
+    select: {
+      style:    'multi+shift',
+      selector: 'td:first-child'
+    },
+    order: [],
+    scrollX: true,
+    pageLength: 100,
+    dom: 'lBfrtip<"actions">',
+    buttons: [
+      {
+        extend: 'selectAll',
+        className: 'btn-primary',
+        text: selectAllButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'selectNone',
+        className: 'btn-primary',
+        text: selectNoneButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'copy',
+        className: 'btn-default',
+        text: copyButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'csv',
+        className: 'btn-default',
+        text: csvButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'excel',
+        className: 'btn-default',
+        text: excelButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'pdf',
+        className: 'btn-default',
+        text: pdfButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      },
+      {
+        extend: 'print',
+        className: 'btn-default',
+        text: printButtonTrans,
+        exportOptions: {
+        columns: ':visible'
+        }
+      },
+      {
+        extend: 'colvis',
+        className: 'btn-default',
+        text: colvisButtonTrans,
+        exportOptions: {
+          columns: ':visible'
+        }
+      }
+    ]
+  });
+  $.fn.dataTable.ext.classes.sPageButton = '';
+});
     </script>
     @yield('scripts')
 </body>

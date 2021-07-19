@@ -138,8 +138,39 @@ table.dataTable thead .sorting_desc {
 
 .card{
     border:none;
+    margin-bottom: 0;
 }
 
 .card-body {
     border-radius: 5px;
+}
+
+table.dataTable.no-footer {
+    border-bottom: 1px solid #999;
+}
+
+.table.datatable {
+    border-radius: 5px;
+}
+
+.lab-container h2{
+    font-size: 1.5rem;
+    background-color: #d5d5d5;
+    padding: 7px 10px;
+    text-align: left;
+    position: relative;
+    top: 47px;
+    border-radius: 5px;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 35px;
+}
+
+.bdp-block {
+    padding: 0px 3px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-top: 1px;
 }
