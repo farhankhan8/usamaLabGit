@@ -171,7 +171,7 @@
                                     <div class="col-md-12 mb-3">
                                         <div class="form-group">
                                             <label for="normalRange">Final Critical Range</label>
-                                            <textarea class="form-control {{ $errors->has('normalRange') ? 'is-invalid' : '' }}" type="number" name="normalRange" id="normalRange">{{ $TestReportItem->normalRange }}</textarea>
+                                            <textarea class="form-control {{ $errors->has('normalRange') ? 'is-invalid' : '' }}" type="number" name="normalRange[]" id="normalRange">{{ $TestReportItem->normalRange }}</textarea>
                                             @if($errors->has('normalRange'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('normalRange') }}

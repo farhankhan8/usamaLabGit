@@ -23,6 +23,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-duration-picker.css') }}" rel="stylesheet" />
+    
 
     @yield('styles')
 </head>

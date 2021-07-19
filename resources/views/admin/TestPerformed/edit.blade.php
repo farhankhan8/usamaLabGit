@@ -124,38 +124,12 @@
                             </script>
                         </div>
                     @endforeach
-                </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                <button class="btn btn-primary" type="submit">Update</button>
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                                <div class="col">
-                                </div>
-                            </div>
+                    <div class="card">
+                        <div class="col">
+                            <button class="btn btn-primary" type="submit">Update</button>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
     </div>

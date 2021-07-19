@@ -1,4 +1,4 @@
-@extends('layouts.ckediter')
+@extends('layouts.admin')
 @section('content')
 
  

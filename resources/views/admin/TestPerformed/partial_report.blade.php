@@ -1,8 +1,4 @@
-<style>
-table td p {
-word-break: break-all;
-}
-</style>
+
 <div class="card-body">
     <div class="col-md-9"><h3>{{ $testPerformedsId->availableTest->category->Cname }}</h3></div>
     <div class="col-md-9"><h4>{{ $testPerformedsId->availableTest->name }}</h4></div>
@@ -44,7 +40,7 @@ word-break: break-all;
             <hr>
             <div class="col-md-9"><h4>Dr Comments </h4></div>
 
-            <div class="col-md-9"><h6>{{!! html_entity_decode($testPerformedsId->comments) !!}}</h6></div>
+            <div class="col-md-9"><h6>{{ $testPerformedsId->comments }}</h6></div>
         
 
             @endif

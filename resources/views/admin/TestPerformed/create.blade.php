@@ -1,4 +1,4 @@
-@extends('layouts.ckediter')
+@extends('layouts.admin')
 @section('content')
     <style> 
         hr {
@@ -159,7 +159,7 @@
 
                         <div class="form-group shadow-textarea col-md-12">
                             <label >Comment</label>
-                            <textarea class="form-control" id="body" placeholder="Write comments  here..." name="comments[]"></textarea>
+                            <textarea class="form-control"name="comments[]"></textarea>
 
                         </div>
 
@@ -199,17 +199,9 @@
                 select.parentElement.parentElement.parentNode.getElementsByClassName("standard_fee")[0].innerText = "";
             }
         }
-
         function add_report() {
             document.getElementById("test_block").insertAdjacentHTML( 'beforeend', document.getElementById("test_block").getElementsByClassName("test_form_div")[0].outerHTML );
         }
     </script>
-    <script>
-        ClassicEditor
-        .create( document.querySelector('#body') )
-        .catch( error => {
-        console.error( error );
-        } );
-    </script>
-    
-@endsection 
+
+@endsection  
