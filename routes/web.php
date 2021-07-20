@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::get('test-performed-edit/{id}', [Controllers\TestsPerformedController::class,'edit'])->name('test-performed-edit');
 Route::get('test-performed-show/{id}',[Controllers\TestsPerformedController::class,'show'])->name('test-performed-show');
+Route::get('test-performed-table/{id}',[Controllers\TestsPerformedController::class,'showDataOfTestPerformedTable'])->name('test-performed-table');
+
 Route::get('tests-performed',[Controllers\TestsPerformedController::class,'index'])->name('tests-performed');
 Route::get('create',[Controllers\TestsPerformedController::class,'create'])->name('create');
 Route::post('test-performed',[Controllers\TestsPerformedController::class,'store'])->name('test-performed');   

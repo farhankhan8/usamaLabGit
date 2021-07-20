@@ -105,7 +105,7 @@ class TestsPerformedController extends Controller
             foreach ($available_test->TestReportItems->where("status", "active")->pluck("id") as $value) {
                 $field_name = "testResult" . $value;
                 if (!$request->$field_name[${"test" . $available_test_id}])
-                    dd($field_name, $request->$field_name[${"test" . $available_test_id}], $request->all());
+                     //dd($field_name, $request->$field_name[${"test" . $available_test_id}], $request->all());
 
                 TestReport::create([
                     'test_performed_id' => $test_performed->id,

@@ -120,6 +120,9 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-xs btn-primary" href="{{ route('test-performed-show', $testPerformed->id) }}">
+                                        Report
+                                    </a>
+                                    <a class="btn btn-xs btn-primary" href="{{ route('test-performed-table', $testPerformed->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
 

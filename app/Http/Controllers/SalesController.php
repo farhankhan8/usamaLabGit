@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 class SalesController extends Controller
-{
+{ 
     public function index() 
     {  
         
@@ -35,7 +35,7 @@ class SalesController extends Controller
         $thisYearSales = TestPerformed::whereDate('created_at', '>=',$currentYear)->pluck('fee')->sum();
 
         $salesForSenvenDays = AvailableTest::withSum('testPerformed','fee')->whereDate('created_at', '>',
-        Carbon::now()->subDays(7))->take(5)->latest()->get();
+        Carbon::now()->subDays(7))->latest()->get();
         $salesForThirtyDays = AvailableTest::withSum('testPerformed','fee')->whereDate('created_at', '>=',
         $cuentMonth)->take(30)->latest()->get();
 

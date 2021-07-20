@@ -146,7 +146,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">{{$report_item->unit}}</span>
                                                     </div>
-                                                    <input class="form-control" type="number" name="testResult{{$report_item->id}}[]" value="" required>
+                                                    <input class="form-control" type="number" name="testResult{{$report_item->id}}[]" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -212,12 +212,6 @@
             $('.select2').select2();
         }
     </script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector('#body') )
-            .catch( error => {
-            console.error( error );
-        });
-    </script>
+
     
 @endsection 
