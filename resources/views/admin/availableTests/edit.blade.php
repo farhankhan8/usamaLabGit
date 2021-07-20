@@ -56,14 +56,14 @@
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="timehour">Stander Completed time</label>
+                        <label for="timehour">Standard Completion time</label>
                         <div class="input-group">
                             <input type="text" name="stander_timehour" class="form-control" id="duration" value="{{ old('testFee', $availableTest->stander_timehour) }}"> 
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="urgent_timehour">Urgent Completed time</label>
+                        <label for="urgent_timehour">Urgent Completion time</label>
                         <div class="input-group">
                             <input type="text" name="urgent_timehour" class="form-control" id="duration2" value="{{ old('testFee', $availableTest->urgent_timehour) }}"> 
                         </div>
@@ -170,8 +170,8 @@
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="form-group">
-                                            <label for="normalRange">Final Critical Range</label>
-                                            <textarea class="form-control {{ $errors->has('normalRange') ? 'is-invalid' : '' }}" type="number" name="normalRange[]" id="normalRange">{{ $TestReportItem->normalRange }}</textarea>
+                                            <label for="normalRange">Reference Range</label>
+                                            <textarea class="form-control {{ $errors->has('normalRange') ? 'is-invalid' : '' }}" name="normalRange[]" id="normalRange">{{ $TestReportItem->normalRange }}</textarea>
                                             @if($errors->has('normalRange'))
                                                 <div class="invalid-feedback">
                                                     {{ $errors->first('normalRange') }}

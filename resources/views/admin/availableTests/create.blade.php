@@ -13,7 +13,7 @@
             Create New Test
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route("availale-tests-store") }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('availale-tests-store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-12 mb-12"><h4>Basic</h4></div>

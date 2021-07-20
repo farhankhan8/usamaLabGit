@@ -13,7 +13,7 @@
             Performed New Test
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route("test-performed") }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('test-performed') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-3 mb-3">
@@ -52,26 +52,19 @@
                     </div>
 
                 </div>
-                <hr class="hr1">
 
-                <div class="col-md-12" id="test_block">
+
+                <div id="test_block">
                     <div class="form-row test_form_div">
 
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3 col-6 mb-3">
                             <div class="form-group">
                                 <label class="required">Select Test Name</label>
-                                <select class="form-control select2 {{ $errors->has('patients') ? 'is-invalid' : '' }}" onchange="set_test_form(this)" name="available_test_id[]" required>
+                                <select  class="form-control select2  {{ $errors->has('available_tests') ? 'is-invalid' : '' }}" onchange="set_test_form(this)" name="available_test_id[]" required>
                                     @foreach($availableTests as $id => $availableTest)
                                         <option value="{{ $id }}">{{ $availableTest }}</option>
                                     @endforeach
                                 </select>
-                                <!--
-                                <select  class="form-control  {{ $errors->has('available_tests') ? 'is-invalid' : '' }}" onchange="set_test_form(this)" name="available_test_id[]" required>
-                                    @foreach($availableTests as $id => $availableTest)
-                                        <option value="{{ $id }}">{{ $availableTest }}</option>
-                                    @endforeach
-                                </select>
-                                -->
                                 @if($errors->has('available_tests'))
                                     <div class="invalid-feedback">
                                         {{ $errors->first('available_tests') }}
@@ -80,7 +73,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3 col-6 mb-3">
                             <div class="form-group">
                                 <label class="">Select Status</label>
                                 <select class="form-control  {{ $errors->has('Sname_id') ? 'is-invalid' : '' }}" name="Sname_id[]" disabled>
@@ -105,12 +98,12 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3 col-6 mb-3">
                             <div class="form-group">
                                 <label for="fee_final">Charged Fee</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Rs.</span>
+                                        <span class="input-group-text" id="inputGroupPrepend">Rs.</span>
                                     </div>
                                     <input class="form-control" type="number" name="fee_final[]" id="fee_final" value="">
                                 </div>
@@ -119,7 +112,7 @@
 
 
 
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3 col-6 mb-3">
                             <div class="form-group">
                                 <label class="required">Test Type</label>
                                 <select class="form-control" name="type[]">
@@ -136,15 +129,15 @@
                         <div class="col-md-12 test_form">
                             @foreach($allAvailableTests as $test)
 
-                                <div class="form-row col-md-12" id="test{{$test->id}}" class="tests">
-                                    <div class="col-md-12"><h4>{{$test->name}}</h4></div>
+                                <div class="form-row" id="test{{$test->id}}" class="tests">
+                                    <div class="col-md-12"><h4>{{$test->name}} result values</h4></div>
                                     @foreach($test->TestReportItems->where("status","active") as $report_item)
-                                        <div class="col-md-4 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <div class="form-group">
                                                 <label class="required text-capitalize">{{$report_item->title}} ({{$report_item->normalRange}}){{$report_item->unit}}</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text">{{$report_item->unit}}</span>
+                                                        <span class="input-group-text" id="inputGroupPrepend">{{$report_item->unit}}</span>
                                                     </div>
                                                     <input class="form-control" type="number" name="testResult{{$report_item->id}}[]" value="">
                                                 </div>
@@ -160,30 +153,29 @@
                                     var test{{$test->id}}_standard ={{$test->testFee}};
                                     var test{{$test->id}}_urgent ={{$test->urgentFee}};
                                 </script>
+
                             @endforeach
-                            <hr class="hr1">
                         </div>
 
                         <div class="form-group shadow-textarea col-md-12">
                             <label >Comment</label>
-                            <textarea class="form-control"name="comments[]"></textarea>
+                            <textarea class="form-control" rows="2" placeholder="Write comments  here..." name="comments[]"></textarea>
 
                         </div>
 
                     </div>
                 </div>
-                <hr class="hr1">
 
                 
 
                 <div class="row">
                     <div class="col-md-12">
-                        <p onclick="add_test()" class="btn btn-success">Add Test</p>
+                        <p onclick="add_report()" class="btn btn-success">Add Test</p>
                         <hr>
                     </div>
                    
                     <div class="col-md-3 mb-3">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary btn-lg" type="submit">Save</button>
                     </div>
                 </div>
             </form>
@@ -191,11 +183,11 @@
     </div>
     <script>
         var select_active = "";
-        $testHTML = $("#test_block").html()
+        var testHTML = document.getElementById("test_block").getElementsByClassName("test_form_div")[0].outerHTML;
         function set_test_form(select) {
             select_active = select;
+            
             console.log(select);
-
             if (select.value) {
                 select.parentElement.parentElement.parentNode.getElementsByClassName("test_form")[0].innerHTML = eval("test" + select.value);
                 select.parentElement.parentElement.parentNode.getElementsByTagName("select")[2].getElementsByTagName("option")[1].innerText="Urgent"+"(" + eval("test" + select.value + "_urgent") + ")";
@@ -206,12 +198,10 @@
                 select.parentElement.parentElement.parentNode.getElementsByClassName("standard_fee")[0].innerText = "";
             }
         }
-
-        function add_test() {
-            $("#test_block").append( $testHTML );
+        function add_report() {
+            document.getElementById("test_block").insertAdjacentHTML( 'beforeend', testHTML );
             $('.select2').select2();
         }
+        
     </script>
-
-    
-@endsection 
+@endsection

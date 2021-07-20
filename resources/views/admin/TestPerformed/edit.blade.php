@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <hr class="hr1">
+                <hr />
 
                 <div class="form-row">
                     <div class="col-md-3 mb-3">
@@ -89,47 +89,48 @@
                             <input type="radio" name="type" id="standard" required {{$performed->type=="standard" ? "checked":""}} value="standard">
                         </div>
                     </div>
+
+
+                    <div id="test_form" class="row col-md-12 mb-2">
+                        @foreach($allAvailableTests as $test)
+                            <div class="form-row col-md-12" id="test{{$test->id}}" class="tests">
+                                    <div class="col-12"><h4>{{$test->name}}</h4></div>
+                                    @if($performed->availableTest->id==$test->id)
+                                        @php  $foreach_variable=$test->TestReportItems->whereIn("id",$performed->testReport->pluck("test_report_item_id")->all()); @endphp
+                                    @else
+                                        @php  $foreach_variable=$test->TestReportItems->where("status","active"); @endphp
+                                    @endif
+                                    @foreach($foreach_variable as $report_item)
+                                        <div class="col-md-4 mb-3">
+                                            <div class="form-group">
+                                                <label class="required text-capitalize" for="testResult{{$report_item->id}}">{{$report_item->title}} ({{$report_item->initialNormalValue}}{{$report_item->unit}} - {{$report_item->finalNormalValue}}{{$report_item->unit}})</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">{{$report_item->unit}}</span>
+                                                    </div>
+                                                    <input class="form-control" type="number" name="testResult{{$report_item->id}}" id="testResult{{$report_item->id}}" value="{{$performed->availableTest->id==$test->id ? $performed->testReport->where("test_report_item_id",$report_item->id)->first()->value:""}}" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                
+                                <script> var test{{$test->id}}= document.getElementById("test{{$test->id}}").outerHTML;
+                                    document.getElementById("test{{$test->id}}").outerHTML = "";
+                                </script>
+                            </div>
+                        @endforeach
+                    </div>
+
+
                     <div class="form-group shadow-textarea col-md-12">
                             <label >Comment</label>
                             <textarea class="form-control z-depth-1" name="comments[]" rows="3" value="">{{ $performed->comments}}</textarea>
                     </div>
                     
+                    <button class="btn btn-primary mt-3 ml-1" type="submit">Update</button>
+                
                 </div>
-                <hr class="hr1">
-                <div id="test_form" class="row col-md-12 mb-12">
-                    @foreach($allAvailableTests as $test)
-                        <div class="form-row col-md-12" id="test{{$test->id}}" class="tests">
-                            <div class="col-md-12"><h4>{{$test->name}}</h4></div>
-                                @if($performed->availableTest->id==$test->id)
-                                    @php  $foreach_variable=$test->TestReportItems->whereIn("id",$performed->testReport->pluck("test_report_item_id")->all()); @endphp
-                                @else
-                                    @php  $foreach_variable=$test->TestReportItems->where("status","active"); @endphp
-                                @endif
-                                @foreach($foreach_variable as $report_item)
-                                    <div class="col-md-4 mb-3">
-                                        <div class="form-group">
-                                            <label class="required text-capitalize" for="testResult{{$report_item->id}}">{{$report_item->title}} ({{$report_item->initialNormalValue}}{{$report_item->unit}} - {{$report_item->finalNormalValue}}{{$report_item->unit}})</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">{{$report_item->unit}}</span>
-                                                </div>
-                                                <input class="form-control" type="number" name="testResult{{$report_item->id}}" id="testResult{{$report_item->id}}" value="{{$performed->availableTest->id==$test->id ? $performed->testReport->where("test_report_item_id",$report_item->id)->first()->value:""}}" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <script> var test{{$test->id}}= document.getElementById("test{{$test->id}}").outerHTML;
-                                document.getElementById("test{{$test->id}}").outerHTML = "";
-                            </script>
-                        </div>
-                    @endforeach
-                    <div class="card">
-                        <div class="col">
-                            <button class="btn btn-primary" type="submit">Update</button>
-                        </div>
-                    </div>
-                </div>
+                
             </form>
         </div>
     </div>

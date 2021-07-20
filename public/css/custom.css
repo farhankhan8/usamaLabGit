@@ -1,6 +1,6 @@
 .ck-editor__editable,
 textarea {
-    min-height: 150px;
+    min-height: 60px;
 }
 
 .datatable {
@@ -173,4 +173,10 @@ table.dataTable.no-footer {
 
 .select2-container .select2-selection--single .select2-selection__rendered {
     padding-top: 1px;
+}
+
+.test_form_div{
+    border-top: 1px solid #888;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

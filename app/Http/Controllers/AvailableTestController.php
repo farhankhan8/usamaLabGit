@@ -115,37 +115,48 @@ class AvailableTestController extends Controller
             'stander_timehour' => $request->stander_timehour,
             'urgent_timehour' => $request->urgent_timehour,
         ])->save();
-        $task->available_test_inventories()->whereNotIn("inventory_id", $request->inventory_ids)->delete();
+
+        //inventory
         $data = [];
-        foreach ($request->inventory_ids as $key => $value) {
-            if (in_array($value, $task->available_test_inventories()->pluck("inventory_id")->all())) {
-                $task->available_test_inventories()->where("inventory_id", $value)->first()->update([
+        
+        $task->available_test_inventories()->whereNotIn("inventory_id", isset($request->inventory_ids)? $request->inventory_ids : [])->delete();
+
+        if(isset($request->inventory_ids)){
+            
+            foreach ($request->inventory_ids as $key => $value) {
+                if (in_array($value, $task->available_test_inventories()->pluck("inventory_id")->all())) {
+                    $task->available_test_inventories()->where("inventory_id", $value)->first()->update([
+                        "itemUsed" => $request->inventory_quantity[$key]
+                    ]);
+                    continue;
+                }
+                $data[] = new AvailableTestInventory([
+                    "inventory_id" => $value,
                     "itemUsed" => $request->inventory_quantity[$key]
                 ]);
-                continue;
             }
-            $data[] = new AvailableTestInventory([
-                "inventory_id" => $value,
-                "itemUsed" => $request->inventory_quantity[$key]
-            ]);
+            $task->available_test_inventories()->saveMany($data);
         }
-        $task->available_test_inventories()->saveMany($data);
+        
         //TestReportItems
         $task->TestReportItems()->whereNotIn("status", ["inactive","deleted"])->update([
             "status"=>"inactive"
         ]);
         $data = [];
-        foreach ($request->title as $key => $value) {
-            $data[] = new TestReportItem([
-                "title" => $value,
-                'normalRange' => $request->normalRange[$key],
-                // 'finalNormalValue' => $request->finalNormalValue[$key],
-                'firstCriticalValue' => $request->firstCriticalValue[$key],
-                'finalCriticalValue' => $request->finalCriticalValue[$key],
-                'unit' => $request->units[$key],
-            ]);
+        if(isset($request->title)){
+            foreach ($request->title as $key => $value) {
+                $data[] = new TestReportItem([
+                    "title" => $value,
+                    'normalRange' => $request->normalRange[$key],
+                    // 'finalNormalValue' => $request->finalNormalValue[$key],
+                    'firstCriticalValue' => $request->firstCriticalValue[$key],
+                    'finalCriticalValue' => $request->finalCriticalValue[$key],
+                    'unit' => $request->units[$key],
+                ]);
+            }
+            $task->TestReportItems()->saveMany($data);
         }
-        $task->TestReportItems()->saveMany($data);
+        
         return redirect()->route('available-tests');
     }
     public function show($id)
