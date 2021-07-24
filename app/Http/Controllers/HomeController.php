@@ -38,7 +38,9 @@ class HomeController extends Controller
             }
         $todayDelayeds = TestPerformed::where([
             ['created_at','>=',$todayDate],
-            ['Sname_id','!=','2']
+            ['Sname_id','!=','2'],
+            ['Sname_id','!=','4'],
+
         ])->latest()->get();
 
         $testPerformeds = TestPerformed::where('created_at','>=',$todayDate)->get();

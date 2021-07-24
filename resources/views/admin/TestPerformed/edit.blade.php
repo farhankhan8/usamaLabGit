@@ -103,7 +103,7 @@
                                     @foreach($foreach_variable as $report_item)
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
-                                                <label class="required text-capitalize" for="testResult{{$report_item->id}}">{{$report_item->title}} ({{$report_item->initialNormalValue}}{{$report_item->unit}} - {{$report_item->finalNormalValue}}{{$report_item->unit}})</label>
+                                                <label class="required text-capitalize" for="testResult{{$report_item->id}}">{{$report_item->title}} ({{$report_item->normalRange}}){{$report_item->unit}}</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">{{$report_item->unit}}</span>

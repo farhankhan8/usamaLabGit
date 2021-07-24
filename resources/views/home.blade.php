@@ -167,7 +167,6 @@
                     </tbody>
                   </table>
                 </div>
-
                 <div class="col-md-6 col-sm-12">
                   <h2>Delayed Tests Today</h2>
                   <table class=" table table-bordered table-striped table-hover datatable datatable-Event">
@@ -181,61 +180,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($todayDelayeds as $key => $todayDelayed)
+                    @foreach($todayDelayeds as $todayDelayed)
+                      @if($todayDelayed->type === "standard")
+                        @if(\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->stander_timehour + $todayDelayed->created_at->timestamp)
                         <tr>
                           <td>
-                          @if($todayDelayed->type === "urgent")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->urgent_timehour + $todayDelayed->created_at->timestamp)
                               {{ $todayDelayed->availableTest->name ?? '' }}
-                            @endif
-                          @endif
-                          @if($todayDelayed->type === "standard")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->stander_timehour + $todayDelayed->created_at->timestamp)
-                              {{ $todayDelayed->availableTest->name ?? '' }}
-                            @endif
-                          @endif
                           </td>
                           <td>
-                          @if($todayDelayed->type === "urgent")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->urgent_timehour + $todayDelayed->created_at->timestamp)
                               {{ $todayDelayed->patient->Pname  ?? '' }}
-                            @endif
-                          @endif
-                          @if($todayDelayed->type === "standard")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->stander_timehour + $todayDelayed->created_at->timestamp)
-                              {{ $todayDelayed->patient->Pname  ?? '' }}
-                            @endif
-                          @endif
-                          </td>
-
-                          <td>
-                          @if($todayDelayed->type === "urgent")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->urgent_timehour + $todayDelayed->created_at->timestamp)
-                              {{ \Carbon\Carbon::parse($todayDelayed->created_at)->isoFormat('MMM Do YYYY H:m:s')}}
-                            @endif
-                          @endif
-                          @if($todayDelayed->type === "standard")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->stander_timehour + $todayDelayed->created_at->timestamp)
-                              {{ \Carbon\Carbon::parse($todayDelayed->created_at)->isoFormat('MMM Do YYYY H:m:s')}}
-                            @endif
-                          @endif
                           </td>
                           <td>
-                                  @if($todayDelayed->type === "urgent")
-                                      @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->urgent_timehour + $todayDelayed->created_at->timestamp)
-                                      <button class="btn btn-xs btn-danger">Delayed</button>
-                                      @endif
-                                  @endif
-
-                                  @if($todayDelayed->type === "standard")
-                                      @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->stander_timehour + $todayDelayed->created_at->timestamp)
-                                      <button class="btn btn-xs btn-danger">Delayed</button>                               
-                                      @endif
-                                  @endif 
-                              </td>
+                              {{ \Carbon\Carbon::parse($todayDelayed->created_at)->isoFormat('MMM Do YYYY H:m:s')}}
+                          </td>
+                          <td> 
+                            <button class="btn btn-xs btn-danger">Delayed</button>                         
+                            </td>
                           <td>
-                          @if($todayDelayed->type === "urgent")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->urgent_timehour + $todayDelayed->created_at->timestamp)
                             <a class="btn btn-xs btn-info" href="{{ route('test-performed-edit', $todayDelayed->id) }}">
                             {{ trans('global.edit') }}
                             </a>                
@@ -244,23 +205,43 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
                             </form>
-                          @endif
-                          @endif
-                          @if($todayDelayed->type === "standard")
-                            @if (\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->stander_timehour + $todayDelayed->created_at->timestamp)
-                            <a class="btn btn-xs btn-info" href="{{ route('test-performed-edit', $todayDelayed->id) }}">
-                            {{ trans('global.edit') }}
-                            </a>                
-                            <form  method="POST" action="{{ route('performed-test-delete', [$todayDelayed->id]) }}" onsubmit="return confirm('{{ trans('global.areYouSure') }}');"  style="display: inline-block;">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                            </form>
-                          @endif
-                          @endif
                           </td>
                         </tr>
+                        @endif
+                        @endif
+                        @endforeach
+                        @foreach($todayDelayeds as $todayDelayed)
+                        @if($todayDelayed->type === "urgent")
+                        @if(\Carbon\Carbon::now()->timestamp > $todayDelayed->availableTest->urgent_timehour + $todayDelayed->created_at->timestamp)
+                        <tr>
+                          <td>
+                              {{ $todayDelayed->availableTest->name ?? '' }}
+                          </td>
+                          <td>
+                              {{ $todayDelayed->patient->Pname  ?? '' }}
+                          </td>
+                          <td>
+                              {{ \Carbon\Carbon::parse($todayDelayed->created_at)->isoFormat('MMM Do YYYY H:m:s')}}
+                          </td>
+                          <td> 
+                            <button class="btn btn-xs btn-danger">Delayed</button>                         
+                            </td>
+                          <td>
+                            <a class="btn btn-xs btn-info" href="{{ route('test-performed-edit', $todayDelayed->id) }}">
+                            {{ trans('global.edit') }}
+                            </a>                
+                            <form  method="POST" action="{{ route('performed-test-delete', [$todayDelayed->id]) }}" onsubmit="return confirm('{{ trans('global.areYouSure') }}');"  style="display: inline-block;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                            </form>
+                          </td>
+                        </tr>
+                        @endif
+                      @endif
                       @endforeach
+
+
                     </tbody>
                   </table>
                 </div>

@@ -127,7 +127,10 @@
                                 </td>
                             <td>
                                 <a class="btn btn-xs btn-primary" href="{{ route('test-performed-show', $test->id) }}">
-                                    {{ trans('global.view') }}
+                                    Report
+                                </a>
+                                <a class="btn btn-xs btn-primary" href="{{ route('test-performed-table', $test->id) }}">
+                                        {{ trans('global.view') }}
                                 </a>
 
                                 <a class="btn btn-xs btn-info" href="{{ route('test-performed-edit', $test->id) }}">

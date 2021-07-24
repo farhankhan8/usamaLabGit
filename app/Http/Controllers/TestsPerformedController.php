@@ -104,7 +104,7 @@ class TestsPerformedController extends Controller
             //test_report store
             foreach ($available_test->TestReportItems->where("status", "active")->pluck("id") as $value) {
                 $field_name = "testResult" . $value;
-                if (!$request->$field_name[${"test" . $available_test_id}])
+                // if (!$request->$field_name[${"test" . $available_test_id}])
                      //dd($field_name, $request->$field_name[${"test" . $available_test_id}], $request->all());
 
                 TestReport::create([
@@ -184,6 +184,13 @@ class TestsPerformedController extends Controller
         $testPerformedsId = TestPerformed::findOrFail($id);
         $getpatient = $testPerformedsId->patient;
         return view('admin.TestPerformed.show', compact('testPerformedsId', 'getpatient'));
+    }
+    public function showDataOfTestPerformedTable($id)
+    {
+        $testPerformedsId = TestPerformed::findOrFail($id);
+        return view('admin.TestPerformed.showData', compact('testPerformedsId'));
+
+
     }
 
     public function destroy($id)
