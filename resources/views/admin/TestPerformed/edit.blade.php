@@ -1,9 +1,12 @@
 @extends('layouts.admin')
 @section('content')
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+
     <style>
         hr {
             border-top: 1px solid rgb(47 53 58);
         }
+
         .hr1 {
             border-top: 1px dashed #777;
         }
@@ -39,7 +42,7 @@
                     </div>
                 </div>
 
-                <hr />
+                <hr/>
 
                 <div class="form-row">
                     <div class="col-md-3 mb-3">
@@ -92,9 +95,12 @@
 
 
                     <div id="test_form" class="row col-md-12 mb-2">
+
                         @foreach($allAvailableTests as $test)
                             <div class="form-row col-md-12" id="test{{$test->id}}" class="tests">
-                                    <div class="col-12"><h4>{{$test->name}}</h4></div>
+                                <div class="col-12"><h4>{{$test->name}}</h4></div>
+                                @if($performed->availableTest->type==1)
+
                                     @if($performed->availableTest->id==$test->id)
                                         @php  $foreach_variable=$test->TestReportItems->whereIn("id",$performed->testReport->pluck("test_report_item_id")->all()); @endphp
                                     @else
@@ -108,12 +114,23 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">{{$report_item->unit}}</span>
                                                     </div>
-                                                    <input class="form-control" type="number" name="testResult{{$report_item->id}}" id="testResult{{$report_item->id}}" value="{{$performed->availableTest->id==$test->id ? $performed->testReport->where("test_report_item_id",$report_item->id)->first()->value:""}}" required>
+                                                    <input class="form-control" type="number" name="testResult{{$report_item->id}}" id="testResult{{$report_item->id}}" value="{{$performed->availableTest->id==$test->id ? $performed->testReport->where("test_report_item_id",$report_item->id)->first()->value:""}}">
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-                                
+
+                                @elseif($performed->availableTest->type==2)
+                                    <div class="col-md-12 mb-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <textarea class='w-100 col-12' name="ckeditor">{{$performed->editor}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+
                                 <script> var test{{$test->id}}= document.getElementById("test{{$test->id}}").outerHTML;
                                     document.getElementById("test{{$test->id}}").outerHTML = "";
                                 </script>
@@ -121,26 +138,32 @@
                         @endforeach
                     </div>
 
-
                     <div class="form-group shadow-textarea col-md-12">
-                            <label >Comment</label>
-                            <textarea class="form-control z-depth-1" name="comments[]" rows="3" value="">{{ $performed->comments}}</textarea>
+                        <label>Comment</label>
+                        <textarea class="form-control z-depth-1" name="comments" rows="3">{{ $performed->comments}}</textarea>
                     </div>
-                    
+
                     <button class="btn btn-primary mt-3 ml-1" type="submit">Update</button>
-                
+
                 </div>
-                
+
             </form>
         </div>
     </div>
-        <script>
-            function set_test_form() {
-                if (document.getElementById("available_test_id").value)
-                    document.getElementById("test_form").innerHTML = eval("test" + document.getElementById("available_test_id").value);
-                else
-                    document.getElementById("test_form").innerHTML = "";
+    <script>
+        function set_test_form() {
+            if (document.getElementById("available_test_id").value)
+                document.getElementById("test_form").innerHTML = eval("test" + document.getElementById("available_test_id").value);
+            else
+                document.getElementById("test_form").innerHTML = "";
+
+            if (document.getElementsByName("ckeditor").length) {
+                CKEDITOR.replace("ckeditor", {
+                    width: '100%',
+                });
             }
-            set_test_form();
-        </script>
+        }
+
+        set_test_form();
+    </script>
 @endsection

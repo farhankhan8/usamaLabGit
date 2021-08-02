@@ -24,7 +24,7 @@ class TestReportItem extends Model
     public function TestReport(){
         return $this->hasOne(TestReport::class );
     }
-    public function pat() 
+    public function pat()
     {
         return $this->belongsTo(AvailableTest::class);
 

@@ -35,7 +35,7 @@ class CreateTestPerformedsTable extends Migration
             $table->string('type');
             $table->string('referred');
             $table->string('specimen');
-            $table->string('comments');
+            $table->string('comments')->nullable();
             $table->timestamps();
         });
     }

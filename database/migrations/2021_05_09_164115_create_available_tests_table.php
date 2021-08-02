@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAvailableTestsTable extends Migration 
+class CreateAvailableTestsTable extends Migration
 {
 
     public function up()
@@ -18,9 +18,7 @@ class CreateAvailableTestsTable extends Migration
             $table->integer('stander_timehour');
             $table->integer('urgent_timehour');
             $table->string('resultValueCount');
-
-
-
+            $table->string('type')->default(1);
 
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')

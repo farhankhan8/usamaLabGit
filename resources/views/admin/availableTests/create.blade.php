@@ -1,9 +1,11 @@
 @extends('layouts.admin')
 @section('content')
+
     <style>
         hr {
             border-top: 1px solid rgb(47 53 58);
         }
+
         .hr1 {
             border-top: 1px dashed #777;
         }
@@ -43,13 +45,13 @@
                     <div class="col-md-3 mb-3">
                         <label for="timehour">Standard Completed time</label>
                         <div class="input-group">
-                            <input type="text" name="stander_timehour" class="form-control" id="duration"> 
-                        </div> 
+                            <input type="text" name="stander_timehour" class="form-control" id="duration">
+                        </div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="urgent_timehour">Urgent Completed time</label>
                         <div class="input-group">
-                            <input type="text" name="urgent_timehour" class="form-control" id="duration2"> 
+                            <input type="text" name="urgent_timehour" class="form-control" id="duration2">
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
@@ -70,19 +72,31 @@
                             <input class="form-control {{ $errors->has('urgentFee') ? 'is-invalid' : '' }}" type="number" name="urgentFee" id="urgentFee" value="{{ old('urgentFee', '') }}" step="1" required>
                         </div>
                     </div>
-          
+                    {{--type--}}
+                    <div class="col-md-3 mb-3">
+                        <label for="">Test Type</label>
+                        <br>
+                        <div class="form-check form-check-inline my-1">
+                            <input id="normal" class="form-check-input" type="radio" name="type" value="1" checked onchange="change_type(this);">
+                            <label class="form-check-label" for="normal">Normal</label>
+                        </div>
+                        <div class="form-check form-check-inline my-1">
+                            <input id="editor" class="form-check-input" type="radio" name="type" value="2" onchange="change_type(this);">
+                            <label class="form-check-label" for="editor">Editor</label>
+                        </div>
+                    </div>
 
                 </div>
                 <hr class="hr1">
 
-                <div class="form-row">
+                <div class="form-row" id="result_section">
                     <div class="col-md-12 mb-12"><h4>Result Values</h4></div>
                     <div class="col-md-12" id="report_item_form">
                         <div class="form-row report_item_class">
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label class="" for="title">Title</label>
-                                    <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title[]" id="title" value="{{ old('title[]', '') }}" >
+                                    <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title[]" id="title" value="{{ old('title[]', '') }}">
                                     @if($errors->has('title'))
                                         <div class="invalid-feedback">
                                             {{ $errors->first('title') }}
@@ -95,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                                 <label for="validationCustom03">First Normal Range</label>
                                 <input class="form-control {{ $errors->has('initialNormalValue') ? 'is-invalid' : '' }}" type="number" name="initialNormalValue[]" id="initialNormalValue" value="{{ old('initialNormalValue[]', '') }}" step="1" required>
                             </div>
@@ -106,21 +120,21 @@
 
                             <div class="col-md-4 mb-3">
                                 <label for="validationCustom05">Test Unit</label>
-                                <input class="form-control {{ $errors->has('units') ? 'is-invalid' : '' }}" type="text" name="units[]" id="units" value="{{ old('units[]', '') }}" >
+                                <input class="form-control {{ $errors->has('units') ? 'is-invalid' : '' }}" type="text" name="units[]" id="units" value="{{ old('units[]', '') }}">
                             </div>
 
                             <div class="col-md-2 mb-3">
                                 <label for="validationCustom05">First Critical Value</label>
-                                <input class="form-control {{ $errors->has('firstCriticalValue') ? 'is-invalid' : '' }}" type="number" name="firstCriticalValue[]" id="firstCriticalValue" value="{{ old('firstCriticalValue[]', '') }}" step="1" >
+                                <input class="form-control {{ $errors->has('firstCriticalValue') ? 'is-invalid' : '' }}" type="number" name="firstCriticalValue[]" id="firstCriticalValue" value="{{ old('firstCriticalValue[]', '') }}" step="1">
                             </div>
                             <div class="col-md-2 mb-3">
                                 <label for="validationCustom05">Final Critical Value</label>
-                                <input class="form-control {{ $errors->has('finalCriticalValue') ? 'is-invalid' : '' }}" type="number" name="finalCriticalValue[]" id="finalCriticalValue" value="{{ old('finalCriticalValue[]', '') }}" step="1" >
+                                <input class="form-control {{ $errors->has('finalCriticalValue') ? 'is-invalid' : '' }}" type="number" name="finalCriticalValue[]" id="finalCriticalValue" value="{{ old('finalCriticalValue[]', '') }}" step="1">
                             </div>
                             <div class="col-md-12 mb-0">
                                 <div class="form-group">
                                     <label for="validationCustom05">Normal Range</label>
-                                    <textarea class="form-control {{ $errors->has('normalRange') ? 'is-invalid' : '' }}" id="normalRange" name="normalRange[]"rows="0"placeholder="Enter Normal Range of Test As This Format 60-120"></textarea>
+                                    <textarea class="form-control {{ $errors->has('normalRange') ? 'is-invalid' : '' }}" id="normalRange" name="normalRange[]" rows="0" placeholder="Enter Normal Range of Test As This Format 60-120"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -129,8 +143,8 @@
                         </div>
                     </div>
                     <div class="col-md-12 text-center">
-                                <button type="button" onclick="add_item()" class="btn btn-xs btn-success">Add Item</button>
-                                <button type="button" onclick="remove_item()" class="btn btn-xs btn-danger">Remove Item</button>
+                        <button type="button" onclick="add_item()" class="btn btn-xs btn-success">Add Item</button>
+                        <button type="button" onclick="remove_item()" class="btn btn-xs btn-danger">Remove Item</button>
                     </div>
                 </div>
                 <hr>
@@ -140,7 +154,7 @@
                         <div class="form-row inventory_item_class">
                             <div class="col-md-6 mb-6">
                                 <label for="inventory_id">Inventory Item</label>
-                                <select class="form-control  {{ $errors->has('inventory_id') ? 'is-invalid' : '' }}" name="inventory_ids[]" id="inventory_id" >
+                                <select class="form-control  {{ $errors->has('inventory_id') ? 'is-invalid' : '' }}" name="inventory_ids[]" id="inventory_id">
                                     @foreach($inventoryes as $key=>$value)
                                         <option value="{{ $key }}">{{ $value }}</option>
                                     @endforeach
@@ -149,16 +163,16 @@
 
                             <div class="col-md-6 mb-6">
                                 <label for="inventory_quantity">Quantity</label>
-                                <input class="form-control {{ $errors->has('inventory_quantity') ? 'is-invalid' : '' }}" type="number" name="inventory_quantity[]" id="inventory_quantity" value="" step="1" >
+                                <input class="form-control {{ $errors->has('inventory_quantity') ? 'is-invalid' : '' }}" type="number" name="inventory_quantity[]" id="inventory_quantity" value="" step="1">
                             </div>
                             <br>
                             <br>
                             <br>
                             <br>
-                        
-                         
+
+
                             <hr class="hr1">
-                        
+
                         </div>
                     </div>
 
@@ -173,7 +187,7 @@
         </div>
     </div>
     <script>
-        var items = 1, item_block = 0,inventories=1,inventory_block=0;
+        var items = 1, item_block = 0, inventories = 1, inventory_block = 0;
 
         function add_item() {
             if (!item_block) {
@@ -208,6 +222,17 @@
                 var index_remove = document.getElementsByClassName("inventory_item_class").length - 1;
                 document.getElementsByClassName("inventory_item_class")[index_remove].outerHTML = "";
                 inventories--;
+            }
+        }
+
+        var result_section;
+        function change_type(a) {
+            if (a.value=="2"){
+                result_section=document.getElementById("result_section").innerHTML;
+                document.getElementById("result_section").innerHTML = "";
+            }
+            else if(a.value=="1"){
+                document.getElementById("result_section").innerHTML=result_section;
             }
         }
     </script>

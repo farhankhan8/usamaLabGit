@@ -7,14 +7,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 class SalesController extends Controller
-{ 
-    public function index() 
+{
+    public function index()
     {  
-        
         $todayDate = Carbon::today();
         $yesterDay = Carbon::yesterday();
-
-
      
         $cuentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;

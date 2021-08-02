@@ -37,6 +37,14 @@ class TestPerformed extends Model
         return $this->availableTest->category_id;
     }
 
+    public function testPerformedEditor(){
+        return $this->hasOne(TestperformedEditor::class);
+    }
+
+    public function GetEditorAttribute(){
+        return $this->testPerformedEditor->editor;
+    }
+
     public function stat()
     {
         return $this->belongsTo(Status::class, 'Sname_id', 'id');

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\TestperformedEditor;
 use App\Models\TestReport;
 use App\Models\AvailableTest;
 use App\Models\Patient;
@@ -12,6 +14,7 @@ use DB;
 use Session;
 use Gate;
 use Illuminate\Http\Request;
+
 class TestsPerformedController extends Controller
 {
     public function index()
@@ -20,12 +23,13 @@ class TestsPerformedController extends Controller
             ->join('statuses', 'test_performeds.Sname_id', '=', 'statuses.id')
             ->join('available_tests', 'test_performeds.available_test_id', '=', 'available_tests.id')
             ->join('categories', '.available_tests.category_id', '=', 'categories.id')
-            ->select('test_performeds.*', 'patients.Pname', 'patients.dob', 'available_tests.name','available_tests.stander_timehour','available_tests.urgent_timehour',
-             'available_tests.testFee', 'categories.Cname', 'statuses.Sname','test_performeds.created_at','test_performeds.specimen')
+            ->select('test_performeds.*', 'patients.Pname', 'patients.dob', 'available_tests.name', 'available_tests.stander_timehour', 'available_tests.urgent_timehour',
+                'available_tests.testFee', 'categories.Cname', 'statuses.Sname', 'test_performeds.created_at', 'test_performeds.specimen')
             ->orderBy('patient_id', 'DESC')
             ->get();
         return view('admin.TestPerformed.index', compact('testPerformeds'));
     }
+
     public function create()
     {
         $patientNames = Patient::all()->pluck('Pname', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -34,8 +38,12 @@ class TestsPerformedController extends Controller
         $allAvailableTests = AvailableTest::all();
         return view('admin.TestPerformed.create', compact('patientNames', 'availableTests', 'stat', "allAvailableTests"));
     }
+
     public function store(Request $request)
     {
+
+        //        dd($request->all());
+
         $patient = Patient::findorfail($request->patient_id);
         if (!$patient)
             return abort(503, "Invalid request");
@@ -43,6 +51,7 @@ class TestsPerformedController extends Controller
         //        dd($request->all());
         $specimen = "";
         foreach ($request->available_test_id as $key => $available_test_id) {
+            //this is to count that how much tests of same type are performed so values can be accessed by index
             if (isset(${"test" . $available_test_id})) {
                 ${"test" . $available_test_id}++;
             } else {
@@ -71,8 +80,8 @@ class TestsPerformedController extends Controller
                     $fee = $fee - ($fee * $patient->category->discount / 100);
             }
 
-            if ($specimen==""){
-                $specimen="S-" . Carbon::now()->format("y") . "-" . TestPerformed::next_id();
+            if ($specimen == "") {
+                $specimen = "S-" . Carbon::now()->format("y") . "-" . TestPerformed::next_id();
             }
 
             //store
@@ -101,18 +110,28 @@ class TestsPerformedController extends Controller
 
             $test_performed->save();
             //dd($test_performed);
-            //test_report store
-            foreach ($available_test->TestReportItems->where("status", "active")->pluck("id") as $value) {
-                $field_name = "testResult" . $value;
-                // if (!$request->$field_name[${"test" . $available_test_id}])
-                     //dd($field_name, $request->$field_name[${"test" . $available_test_id}], $request->all());
 
-                TestReport::create([
+            if ($available_test->type == 1) {
+                //test_report store
+                foreach ($available_test->TestReportItems->where("status", "active")->pluck("id") as $value) {
+                    $field_name = "testResult" . $value;
+                    // if (!$request->$field_name[${"test" . $available_test_id}])
+                    //dd($field_name, $request->$field_name[${"test" . $available_test_id}], $request->all());
+
+                    TestReport::create([
+                        'test_performed_id' => $test_performed->id,
+                        'test_report_item_id' => $value,
+                        'value' => $request->$field_name[${"test" . $available_test_id}],
+                    ]);
+                }
+            } elseif ($available_test->type == 2) {
+                $field_name = "ckeditor";
+                TestperformedEditor::create([
                     'test_performed_id' => $test_performed->id,
-                    'test_report_item_id' => $value,
-                    'value' => $request->$field_name[${"test" . $available_test_id}],
+                    'editor' => $request->$field_name[${"test" . $available_test_id}]
                 ]);
             }
+
 
         }
 
@@ -139,13 +158,6 @@ class TestsPerformedController extends Controller
         if (!$patient || !$available_test || !$test_performed)
             return abort(503, "Invalid request");
 
-        //        inventory
-        //        foreach ($available_test->available_test_inventories as $test_inventory) {
-        //            $test_inventory->inventory->update([
-        //                "remainingItem" => $test_inventory->inventory->remainingItem - $test_inventory->itemUsed
-        //            ]);
-        //        }
-
         //fee
         $fee = $request->type == "urgent" ? $available_test->urgentFee : $available_test->testFee;
         if ($patient->category && $patient->category->discount)
@@ -160,18 +172,25 @@ class TestsPerformedController extends Controller
             "comments" => $request->comments,
         ]);
 
-        //test_report store
-        $test_performed->testReport->each(function ($item, $key) {
-            $item->delete();
-        });
-        foreach ($available_test->TestReportItems->pluck("id") as $value) {
-            $field_name = "testResult" . $value;
-            if (!isset($request->$field_name))
-                continue;
-            TestReport::create([
-                'test_performed_id' => $test_performed->id,
-                'test_report_item_id' => $value,
-                'value' => $request->$field_name,
+
+        if ($test_performed->availableTest->type == 1) {
+            //test_report store
+            $test_performed->testReport->each(function ($item, $key) {
+                $item->delete();
+            });
+            foreach ($available_test->TestReportItems->pluck("id") as $value) {
+                $field_name = "testResult" . $value;
+                if (!isset($request->$field_name))
+                    continue;
+                TestReport::create([
+                    'test_performed_id' => $test_performed->id,
+                    'test_report_item_id' => $value,
+                    'value' => $request->$field_name,
+                ]);
+            }
+        } elseif ($test_performed->availableTest->type == 2) {
+            $test_performed->testPerformedEditor->update([
+                "editor" => $request->ckeditor
             ]);
         }
 
@@ -185,6 +204,7 @@ class TestsPerformedController extends Controller
         $getpatient = $testPerformedsId->patient;
         return view('admin.TestPerformed.show', compact('testPerformedsId', 'getpatient'));
     }
+
     public function showDataOfTestPerformedTable($id)
     {
         $testPerformedsId = TestPerformed::findOrFail($id);
