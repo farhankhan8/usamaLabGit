@@ -123,7 +123,7 @@
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
                                                 <label class="" for="title">Title</label>
-                                                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title[]" id="title" value="{{$TestReportItem->title}}" required>
+                                                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title[]" id="title" value="{{$TestReportItem->title}}">
                                                 @if($errors->has('title'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('title') }}
@@ -213,7 +213,7 @@
                                         <div class="col-md-4 mb-3">
                                             <div class="form-group">
                                                 <label class="" for="title">Title</label>
-                                                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title[]" id="title" value="" required>
+                                                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title[]" id="title" value="">
                                                 @if($errors->has('title'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('title') }}
@@ -314,7 +314,7 @@
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
                                         <label>Inventory Item</label>
-                                        <select class="form-control  {{ $errors->has('inventory_id') ? 'is-invalid' : '' }}" name="inventory_ids[]" required>
+                                        <select class="form-control  {{ $errors->has('inventory_id') ? 'is-invalid' : '' }}" name="inventory_ids[]">
                                             @foreach($inventoryes as $key=>$value)
                                                 <option value="{{ $key }}" {{ $available_test_inventory->inventory_id==$key ? 'selected' : '' }}>{{ $value }}</option>
                                             @endforeach
@@ -322,7 +322,7 @@
                                     </div>
                                     <div class="col-md-2 mb-3">
                                         <label for="inventory_quantity{{$x}}">Quantity</label>
-                                        <input class="form-control {{ $errors->has('inventory_quantity') ? 'is-invalid' : '' }}" type="number" name="inventory_quantity[]" id="inventory_quantity{{$x}}" value="{{$available_test_inventory->itemUsed}}" step="1" required>
+                                        <input class="form-control {{ $errors->has('inventory_quantity') ? 'is-invalid' : '' }}" type="number" name="inventory_quantity[]" id="inventory_quantity{{$x}}" value="{{$available_test_inventory->itemUsed}}" step="1">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -337,7 +337,7 @@
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
                                         <label>Inventory Item</label>
-                                        <select class="form-control  {{ $errors->has('inventory_id') ? 'is-invalid' : '' }}" name="inventory_ids[]" required>
+                                        <select class="form-control  {{ $errors->has('inventory_id') ? 'is-invalid' : '' }}" name="inventory_ids[]">
                                             @foreach($inventoryes as $key=>$value)
                                                 <option value="{{ $key }}">{{ $value }}</option>
                                             @endforeach
@@ -345,7 +345,7 @@
                                     </div>
                                     <div class="col-md-2 mb-3">
                                         <label>Quantity</label>
-                                        <input class="form-control {{ $errors->has('inventory_quantity') ? 'is-invalid' : '' }}" type="number" name="inventory_quantity[]" value="" step="1" required>
+                                        <input class="form-control {{ $errors->has('inventory_quantity') ? 'is-invalid' : '' }}" type="number" name="inventory_quantity[]" value="" step="1">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

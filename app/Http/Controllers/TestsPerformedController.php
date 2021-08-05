@@ -41,9 +41,7 @@ class TestsPerformedController extends Controller
 
     public function store(Request $request)
     {
-
         //        dd($request->all());
-
         $patient = Patient::findorfail($request->patient_id);
         if (!$patient)
             return abort(503, "Invalid request");
@@ -131,10 +129,7 @@ class TestsPerformedController extends Controller
                     'editor' => $request->$field_name[${"test" . $available_test_id}]
                 ]);
             }
-
-
         }
-
         return redirect()->route('tests-performed');
     }
 
@@ -151,6 +146,8 @@ class TestsPerformedController extends Controller
 
     public function update($id, Request $request)
     {
+
+        //        dd($request->all());
 
         $test_performed = TestPerformed::findOrFail($id);
         $available_test = AvailableTest::findorfail($request->available_test_id);
@@ -175,18 +172,29 @@ class TestsPerformedController extends Controller
 
         if ($test_performed->availableTest->type == 1) {
             //test_report store
-            $test_performed->testReport->each(function ($item, $key) {
-                $item->delete();
-            });
+            $delete_items = $test_performed->testReport->pluck("id")->all();
+
+            $created = 0;
             foreach ($available_test->TestReportItems->pluck("id") as $value) {
                 $field_name = "testResult" . $value;
-                if (!isset($request->$field_name))
-                    continue;
-                TestReport::create([
-                    'test_performed_id' => $test_performed->id,
-                    'test_report_item_id' => $value,
-                    'value' => $request->$field_name,
-                ]);
+                $test_report_new=new TestReport();
+                $test_report_new->test_performed_id=$test_performed->id;
+                $test_report_new->test_report_item_id=$value;
+                if (isset($request->$field_name))
+                    $test_report_new->value=$request->$field_name;
+                $test_report_new->save();
+
+//                TestReport::create([
+//                    'test_performed_id' => $test_performed->id,
+//                    'test_report_item_id' => $value,
+//                    'value' => $request->$field_name,
+//                ]);
+                $created++;
+            }
+            if ($created) {
+                TestReport::whereIn("id", $delete_items)->each(function ($item, $key) {
+                    $item->delete();
+                });
             }
         } elseif ($test_performed->availableTest->type == 2) {
             $test_performed->testPerformedEditor->update([

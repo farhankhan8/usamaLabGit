@@ -28,7 +28,15 @@
                             <td class="">{{$testReport->report_item->unit}}</td>
                             <td>{{ $testReport->value }}</td>
                             @foreach($getpatient->testPerformed->where("available_test_id",$testPerformedsId->availableTest->id)->where("id","<",$testPerformedsId->id)->sortByDesc('created_at')->take(2) as $old_test)
-                                <td>{{ $old_test->testReport->where("test_report_item_id",$testReport->test_report_item_id)->first()->value }}&nbsp<span class="text-black-50"></span>({{ date('d-m-Y', strtotime($old_test->created_at)) }})</td>
+                                @php
+                                    if(!$old_test->testReport->where("test_report_item_id",$testReport->test_report_item_id)->first())
+                                    {
+                                        $xyz = '';
+                                    }else{
+                                        $xyz = $old_test->testReport->where("test_report_item_id",$testReport->test_report_item_id)->first()->value . "&nbsp<span class='text-black-50'></span>( ". date('d-m-Y', strtotime($old_test->created_at)) ." )";
+                                    }
+                                @endphp
+                                <td>{{ $xyz }}</td>
                             @endforeach
                             <td>({{$testReport->report_item->normalRange}}){{$testReport->report_item->unit}}</td>
 

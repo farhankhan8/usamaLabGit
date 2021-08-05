@@ -130,7 +130,6 @@
                                     </div>
                                 @endif
 
-
                                 <script> var test{{$test->id}}= document.getElementById("test{{$test->id}}").outerHTML;
                                     document.getElementById("test{{$test->id}}").outerHTML = "";
                                 </script>
@@ -142,9 +141,7 @@
                         <label>Comment</label>
                         <textarea class="form-control z-depth-1" name="comments" rows="3">{{ $performed->comments}}</textarea>
                     </div>
-
                     <button class="btn btn-primary mt-3 ml-1" type="submit">Update</button>
-
                 </div>
 
             </form>
