@@ -33,7 +33,7 @@
                                     {
                                         $xyz = '';
                                     }else{
-                                        $xyz = $old_test->testReport->where("test_report_item_id",$testReport->test_report_item_id)->first()->value . "&nbsp<span class='text-black-50'></span>( ". date('d-m-Y', strtotime($old_test->created_at)) ." )";
+                                        $xyz = $old_test->testReport->where("test_report_item_id",$testReport->test_report_item_id)->first()->value . " (". date('d-m-Y', strtotime($old_test->created_at)) .")";
                                     }
                                 @endphp
                                 <td>{{ $xyz }}</td>
