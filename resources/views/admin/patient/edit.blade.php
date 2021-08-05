@@ -12,7 +12,7 @@
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label for="Pname">Patient Name</label>
-                            <input class="form-control {{ $errors->has('Pname') ? 'is-invalid' : '' }}" type="text" name="Pname" id="Pname" value="{{ old('Pname', $patients->Pname) }}" required>
+                            <input class="form-control {{ $errors->has('Pname') ? 'is-invalid' : '' }}" type="text" name="Pname" id="Pname" value="{{ old('Pname', $patients->Pname) }}" >
                             @if($errors->has('Pname'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('Pname') }}
@@ -28,7 +28,7 @@
                     <div class="col-md-4 mb-3">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="email" name="email" id="name" value="{{ old('email', $patients->email) }}" required>
+                            <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="email" name="email" id="name" value="{{ old('email', $patients->email) }}" >
                             @if($errors->has('email'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('email') }}
@@ -62,7 +62,7 @@
                 <div class="col-md-4 mb-3">
                     <div class="form-group">
                         <label for="start_time">Register Date</label>
-                        <input class="form-control datetime {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="text" name="start_time" id="start_time" value="{{ old('phone', $patients->start_time) }}" required>
+                        <input class="form-control datetime {{ $errors->has('start_time') ? 'is-invalid' : '' }}" type="text" name="start_time" id="start_time" value="{{ old('phone', $patients->start_time) }}" >
                         @if($errors->has('start_time'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('start_time') }}
@@ -79,7 +79,7 @@
                 <div class="col-md-4 mb-3">
                     <div class="form-group">
                         <label for="dob">Birthday</label>
-                        <input class="form-control {{ $errors->has('dob') ? 'is-invalid' : '' }}" type="date" name="dob" id="dob" value="{{ old('phone', $patients->dob) }}" required>
+                        <input class="form-control {{ $errors->has('dob') ? 'is-invalid' : '' }}" type="date" name="dob" id="dob" value="{{ old('phone', $patients->dob) }}" >
                         @if($errors->has('dob'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('dob') }}
@@ -91,18 +91,18 @@
                         Looks good!
                     </div>
                 </div>
-
                 <div class="col-md-4 mb-3">
                     <div class="form-group">
-                        <label class="required" for="catagory">Select Patient Name</label>
-                        <select class="form-control" name="catagory" id="catagory" required>
+                        <label class="" for="patient_category_id">Select Patient Category</label>
+                 
+                        <select class="form-control" name="patient_category_id" id="patient_category_id" >
                             @foreach($patientCategorys as $id => $patientCategory)
-                                <option value="{{ $id }}" {{ $patients->catagory == $id ? 'selected' : '' }}>{{ $patientCategory }}</option>
-                            @endforeach
+                                <option value="{{ $id }}" {{ $patients->patient_category_id == $id ? 'selected' : '' }}>{{ $patientCategory }}</option>
+                             @endforeach
                         </select>
-                        @if($errors->has('catagory '))
+                        @if($errors->has('patient_category_id'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('catagory ') }}
+                                {{ $errors->first('patient_category_id') }}
                             </div>
                         @endif
                         <span class="help-block"></span>

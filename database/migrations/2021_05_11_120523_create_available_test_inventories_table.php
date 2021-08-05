@@ -17,7 +17,7 @@ class CreateAvailableTestInventoriesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('available_test_id');
             $table->string('inventory_id');
-            $table->integer('itemUsed');
+            $table->bigInteger('itemUsed');
             $table->timestamps();
         });
     }

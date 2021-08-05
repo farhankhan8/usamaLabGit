@@ -216,9 +216,8 @@ class TestsPerformedController extends Controller
     public function showDataOfTestPerformedTable($id)
     {
         $testPerformedsId = TestPerformed::findOrFail($id);
-        return view('admin.TestPerformed.showData', compact('testPerformedsId'));
-
-
+        $availableTestId = $testPerformedsId->availableTest;
+        return view('admin.TestPerformed.showData', compact('testPerformedsId','availableTestId'));
     }
 
     public function destroy($id)

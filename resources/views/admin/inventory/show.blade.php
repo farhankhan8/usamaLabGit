@@ -25,7 +25,7 @@
   
           </div>
             <a class="btn btn-primary" href="{{ route('inventory-list') }}">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Back</button>
             </a>
           </div>
      </div>

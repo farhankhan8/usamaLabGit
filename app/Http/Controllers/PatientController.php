@@ -59,8 +59,44 @@ class PatientController extends Controller
     public function update($id, Request $request)
    {
         $patient = Patient::findOrFail($id);
-        $input = $request->all(); 
-        $patient->fill($input)->save();
+        // $input = $request->all(); 
+        // $patient->fill($input)->save();
+        if (!empty($request->Pname)) {
+            $patient->Pname = $request->Pname;
+        } else {
+            $patient->Pname = '';
+        }
+        if (!empty($request->email)) {
+            $patient->email = $request->email;
+        } else {
+            $patient->email = '';
+        }
+        if (!empty($request->phone)) {
+            $patient->phone = $request->phone;
+        } else {
+            $patient->phone = '';
+        }
+        if (!empty($request->start_time)) {
+            $patient->start_time = $request->start_time;
+        } else {
+            $patient->start_time = '';
+        }
+        if (!empty($request->dob)) {
+            $patient->dob = $request->dob;
+        } else {
+            $patient->dob = '';
+        }
+        if (!empty($request->patient_category_id)) {
+            $patient->patient_category_id  = $request->patient_category_id ;
+        } else {
+            $patient->patient_category_id  = '';
+        }
+        if (!empty($request->gend)) {
+            $patient->gend  = $request->gend ;
+        } else {
+            $patient->gend  = '';
+        }
+        $patient->save();
         return redirect()->route('patient-list');
     }
     public function show($id)
