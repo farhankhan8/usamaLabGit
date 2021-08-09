@@ -13,7 +13,7 @@
     @endphp
 
     @foreach($tests as $testPerformedsId)
-        @php $i = $testPerformedsId->resultValueCount + $i;   @endphp
+        @php $i = $testPerformedsId->resultValueCount + $i; @endphp
         <div style="{{($testPerformedsId->category_id!=$previous_category_id && $previous_category_id!='' || $i > 2) ? 'page-break-before: always':''}}" class="card">
 
         <!-- <div style="page-break-after: always;" class="card {{($testPerformedsId->category_id!=$previous_category_id && $previous_category_id!="") ? "page-break-before":""}}"> -->

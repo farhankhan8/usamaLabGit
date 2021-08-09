@@ -41,12 +41,12 @@ class TestsPerformedController extends Controller
 
     public function store(Request $request)
     {
-        //        dd($request->all());
+        //dd($request->all());
         $patient = Patient::findorfail($request->patient_id);
         if (!$patient)
             return abort(503, "Invalid request");
 
-        //        dd($request->all());
+        //dd($request->all());
         $specimen = "";
         foreach ($request->available_test_id as $key => $available_test_id) {
             //this is to count that how much tests of same type are performed so values can be accessed by index
@@ -55,7 +55,7 @@ class TestsPerformedController extends Controller
             } else {
                 ${"test" . $available_test_id} = 0;
             }
-            //            dd(isset(${"test".$available_test_id}),${"test".$available_test_id});
+            //dd(isset(${"test".$available_test_id}),${"test".$available_test_id});
 
 
             $available_test = AvailableTest::findorfail($available_test_id);
@@ -216,7 +216,17 @@ class TestsPerformedController extends Controller
     public function showDataOfTestPerformedTable($id)
     {
         $testPerformedsId = TestPerformed::findOrFail($id);
-        $availableTestId = $testPerformedsId->availableTest;
+        $availableTestId = $testPerformedsId->availableTest; 
+
+        //  dd($values);
+        // $countLength = count($values);
+        // dd($countLength);
+
+        // for($x = 0; $x < $countLength; $x++)
+        // {
+        //     array_push($values[$x]);
+        // }
+        // $value = $getVal[0];
         return view('admin.TestPerformed.showData', compact('testPerformedsId','availableTestId'));
     }
 
@@ -226,5 +236,5 @@ class TestsPerformedController extends Controller
         $task->delete();
         Session::flash('flash_message', 'Task successfully deleted!');
         return redirect()->route('tests-performed');
-    }
+    } 
 }

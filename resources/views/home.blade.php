@@ -133,8 +133,8 @@
                                         <tbody>
                                         @foreach($availableTestNameAndCountTests as $key => $availableTestNameAndCountTest)
                                             <tr>
-                                                <td>{{ $availableTestNameAndCountTest->name }}</td>
-                                                <td>{{ $availableTestNameAndCountTest->test_performed_count }}</td>
+                                                <td>{{ $availableTestNameAndCountTest->availableTest->name }}</td>
+                                                <td>{{  $availableTestNameAndCountTest->available_test_count }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

@@ -49,10 +49,11 @@ class HomeController extends Controller
         ])->latest()->get();
 
         $testPerformeds = TestPerformed::where('created_at', '>=', $todayDate)->get();
+        $availableTestNameAndCountTests = TestPerformed::where('created_at', '>=', $todayDate)->withCount(['availableTest'])->get();
 
-        $availableTestNameAndCountTests = AvailableTest::withCount(['testPerformed'])
-            ->orderBy('test_performed_count', 'desc')
-            ->get();
+        // $availableTestNameAndCountTests = AvailableTest::withCount(['testPerformed'])
+        //     ->orderBy('test_performed_count', 'desc')
+        //     ->get();
 
         $test = DB::table('test_performeds')
             ->get('id');

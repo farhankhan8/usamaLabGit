@@ -123,8 +123,7 @@ class PatientController extends Controller
     public function view_multiple_report(Request $request){
         $tests=TestPerformed::whereIn("id",$request->report_ids)->with("availableTest")->get();
         $tests = TestPerformed::join('available_tests', 'available_tests.id', '=', 'test_performeds.available_test_id')->whereIn("test_performeds.id",$request->report_ids)->orderBy('available_tests.id')->select('test_performeds.*',"available_tests.category_id","available_tests.resultValueCount")->get();
-
-//        dd($tests[0]);
+        //dd($tests[0]);
         $getpatient=$tests[0]->patient;
         return view("admin.patient.multiple_reports",compact("tests","getpatient"));
     }

@@ -66,6 +66,10 @@
                 <div>
                     <h3>Report Items</h3>
                 </div>
+                @php 
+                $length = count($availableTestId->TestReportItems->where("status","active"));
+                $x = 1;
+                @endphp
                 @foreach($availableTestId->TestReportItems->where("status","active") as $TestReportItem)
                     <div class="text-capitalize"><h4>{{$TestReportItem->title}}</h4></div>
                         <div class="form-group">
@@ -92,12 +96,24 @@
                                 </div>
                             </div>
                         </div>
-                        <hr class="hr1">
+                        @php 
+                    if($length === $x)
+                    {
+                        echo "";
+                    }else{
+                        echo "<hr class='hr1'>";
+                    }
+                    $x++;
+                    @endphp
                 @endforeach
                 <hr class="hr">
                 <div>
                     <h3>Inventory Used</h3>
                 </div>
+                @php 
+                $length = count($availableTestId->available_test_inventories);
+                $x = 1;
+                @endphp
                 @foreach($availableTestId->available_test_inventories as $test_inventories)
                     <div class="form-group">
                         <div class="row">
@@ -107,7 +123,15 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="hr1">
+                    @php 
+                    if($length === $x)
+                    {
+                        echo "";
+                    }else{
+                        echo "<hr class='hr1'>";
+                    }
+                    $x++;
+                    @endphp 
                 @endforeach
                 <hr class="hr">
                 <div class="row">
